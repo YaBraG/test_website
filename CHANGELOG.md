@@ -4,6 +4,7 @@ All meaningful project changes will be tracked in this file.
 
 ## Unreleased
 
+- Added a static Electrical Engineering pathway map layout.
 - Added sample Electrical Engineering course data and planner course cards.
 - Changed the planner view to use the full page width after entering the planner.
 - Changed generic project metadata and planner template wording.

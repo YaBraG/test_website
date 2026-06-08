@@ -1,13 +1,7 @@
 import { CourseCard } from "@/components/planner/course-card";
+import { ElectricalPathwayMap } from "@/components/planner/electrical-pathway-map";
 import { electricalEngineeringCourses } from "@/data/electrical-engineering-courses";
 import type { CourseCategory } from "@/types/course-planner";
-
-const mapSections = [
-  "General Education",
-  "Discipline General Education",
-  "Institution Track Requirements",
-  "Transfer Core Requirements",
-];
 
 const courseCategorySections: {
   category: CourseCategory;
@@ -33,19 +27,19 @@ const courseCategorySections: {
 
 const legendItems = [
   {
-    label: "Approved and offered by the institution",
+    label: "Approved and offered at MDC",
     markerClassName: "bg-emerald-500",
   },
   {
-    label: "Approved but not offered by the institution",
+    label: "Approved but not offered at MDC",
     markerClassName: "bg-sky-500",
   },
   {
-    label: "Not approved but offered by the institution",
+    label: "Not approved but offered at MDC",
     markerClassName: "bg-amber-500",
   },
   {
-    label: "Not approved and not offered by the institution",
+    label: "Not approved and not offered at MDC",
     markerClassName: "bg-slate-400",
   },
 ];
@@ -79,22 +73,7 @@ export function EngineeringPlannerShell() {
             </span>
           </div>
 
-          <div className="mt-4 grid gap-4 md:grid-cols-2">
-            {mapSections.map((sectionName) => (
-              <section
-                key={sectionName}
-                className="min-h-36 rounded-md border border-dashed border-slate-300 bg-white p-4"
-              >
-                <h3 className="text-sm font-semibold text-slate-900">
-                  {sectionName}
-                </h3>
-                <p className="mt-3 text-sm leading-6 text-slate-500">
-                  Course placeholders will appear here after real Engineering
-                  data is added.
-                </p>
-              </section>
-            ))}
-          </div>
+          <ElectricalPathwayMap />
 
           <div className="mt-5 rounded-md border border-slate-200 bg-white p-4">
             <h3 className="text-sm font-semibold text-slate-900">
