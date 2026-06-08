@@ -1,7 +1,7 @@
 const mapSections = [
   "General Education",
   "Discipline General Education",
-  "MDC Track Requirements",
+  "Institution Track Requirements",
   "Transfer Core Requirements",
 ];
 
@@ -14,19 +14,19 @@ const optionSections = [
 
 const legendItems = [
   {
-    label: "Approved and offered at MDC",
+    label: "Approved and offered by the institution",
     markerClassName: "bg-emerald-500",
   },
   {
-    label: "Approved but not offered at MDC",
+    label: "Approved but not offered by the institution",
     markerClassName: "bg-sky-500",
   },
   {
-    label: "Not approved but offered at MDC",
+    label: "Not approved but offered by the institution",
     markerClassName: "bg-amber-500",
   },
   {
-    label: "Not approved and not offered at MDC",
+    label: "Not approved and not offered by the institution",
     markerClassName: "bg-slate-400",
   },
 ];

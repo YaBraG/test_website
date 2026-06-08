@@ -1,6 +1,6 @@
-# Full-Stack Website
+# Course Planner
 
-A modern full-stack website built with Next.js, React, TypeScript, and Tailwind CSS.
+A course planning website for students to organize academic pathways.
 
 ## Tech Stack
 
@@ -39,6 +39,10 @@ src/
     page.tsx
     layout.tsx
     globals.css
+  components/
+    auth/
+    planner/
+  data/
 public/
 ```
 

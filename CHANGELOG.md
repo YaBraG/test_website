@@ -4,6 +4,7 @@ All meaningful project changes will be tracked in this file.
 
 ## Unreleased
 
+- Changed generic project metadata and planner template wording.
 - Added the first Engineering planner shell.
 - Added availability statuses to the discipline selector.
 - Added discipline selection after student sign-in.

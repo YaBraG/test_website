@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Full-Stack Website",
-  description: "A full-stack website built with Next.js, React, TypeScript, and Tailwind CSS.",
+  title: "Course Planner",
+  description: "A course planning website for building student academic pathways.",
 };
 
 export default function RootLayout({
