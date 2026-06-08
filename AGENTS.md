@@ -10,7 +10,7 @@ These instructions apply to all AI coding agents working in this repository.
 
 ## Project Purpose
 
-This project is a full-stack academic course planning website for SAS students. The app will help students select a discipline, track completed/enrolled/planned courses, map AP exam scores to course credit, and build an interactive semester-by-semester pathway.
+This project is a full-stack academic course planning website for students. The app will help students select a discipline, track completed/enrolled/planned courses, map AP exam scores to course credit, and build an interactive semester-by-semester pathway.
 
 Build the project as a professional, maintainable template first. Do not try to complete every future feature at once.
 
