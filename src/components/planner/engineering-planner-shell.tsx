@@ -1,3 +1,7 @@
+import { CourseCard } from "@/components/planner/course-card";
+import { electricalEngineeringCourses } from "@/data/electrical-engineering-courses";
+import type { CourseCategory } from "@/types/course-planner";
+
 const mapSections = [
   "General Education",
   "Discipline General Education",
@@ -5,11 +9,26 @@ const mapSections = [
   "Transfer Core Requirements",
 ];
 
-const optionSections = [
-  "General Ed Options",
-  "Discipline Options",
-  "Track Options",
-  "Transfer Options",
+const courseCategorySections: {
+  category: CourseCategory;
+  title: string;
+}[] = [
+  {
+    category: "general-education",
+    title: "General Education",
+  },
+  {
+    category: "discipline-general-education",
+    title: "Discipline General Education",
+  },
+  {
+    category: "mdc-track-requirement",
+    title: "MDC Track Requirements",
+  },
+  {
+    category: "transfer-core",
+    title: "Transfer Core",
+  },
 ];
 
 const legendItems = [
@@ -98,20 +117,29 @@ export function EngineeringPlannerShell() {
           <h2 className="text-lg font-semibold text-slate-950">
             Course Options
           </h2>
-          <div className="mt-4 space-y-3">
-            {optionSections.map((sectionName) => (
-              <section
-                key={sectionName}
-                className="rounded-md border border-slate-200 bg-slate-50 p-4"
-              >
-                <h3 className="text-sm font-semibold text-slate-900">
-                  {sectionName}
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-slate-500">
-                  Options will be listed here when course data is added.
-                </p>
-              </section>
-            ))}
+          <p className="mt-2 text-sm leading-6 text-slate-600">
+            Sample Electrical Engineering courses from the current source
+            documents.
+          </p>
+          <div className="mt-4 space-y-5">
+            {courseCategorySections.map((section) => {
+              const courses = electricalEngineeringCourses.filter(
+                (course) => course.category === section.category,
+              );
+
+              return (
+                <section key={section.category}>
+                  <h3 className="text-sm font-semibold text-slate-900">
+                    {section.title}
+                  </h3>
+                  <div className="mt-3 space-y-3">
+                    {courses.map((course) => (
+                      <CourseCard key={course.id} course={course} />
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
           </div>
         </aside>
       </div>
