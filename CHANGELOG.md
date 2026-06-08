@@ -4,6 +4,7 @@ All meaningful project changes will be tracked in this file.
 
 ## Unreleased
 
+- Added availability statuses to the discipline selector.
 - Added discipline selection after student sign-in.
 - Polished the student sign-in screen wording and added a password visibility toggle.
 - Updated the sample student email domain to `mdc.edu`.
