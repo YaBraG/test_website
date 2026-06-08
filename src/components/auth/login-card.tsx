@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { DisciplineSelector } from "@/components/planner/discipline-selector";
+import { EngineeringPlannerShell } from "@/components/planner/engineering-planner-shell";
 import { testUser } from "@/data/test-user";
 
 export function LoginCard() {
@@ -10,6 +11,7 @@ export function LoginCard() {
   const [showPassword, setShowPassword] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [selectedDisciplineId, setSelectedDisciplineId] = useState("");
+  const [showPlanner, setShowPlanner] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -30,6 +32,10 @@ export function LoginCard() {
   }
 
   if (isSignedIn) {
+    if (showPlanner) {
+      return <EngineeringPlannerShell />;
+    }
+
     return (
       <section className="w-full max-w-3xl rounded-lg border border-slate-200 bg-white p-8 shadow-sm">
         <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
@@ -46,6 +52,16 @@ export function LoginCard() {
           selectedDisciplineId={selectedDisciplineId}
           onSelectDiscipline={setSelectedDisciplineId}
         />
+
+        {selectedDisciplineId === "engineering" ? (
+          <button
+            type="button"
+            onClick={() => setShowPlanner(true)}
+            className="mt-6 rounded-md bg-sky-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-200"
+          >
+            Continue to planner
+          </button>
+        ) : null}
       </section>
     );
   }
