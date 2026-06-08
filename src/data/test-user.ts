@@ -1,5 +1,5 @@
 export const testUser = {
-  email: "student@sas.edu",
+  email: "student@mdc.edu",
   password: "password123",
   name: "Test Student",
 };
