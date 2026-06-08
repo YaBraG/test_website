@@ -4,6 +4,7 @@ All meaningful project changes will be tracked in this file.
 
 ## Unreleased
 
+- Changed the planner view to use the full page width after entering the planner.
 - Changed generic project metadata and planner template wording.
 - Added the first Engineering planner shell.
 - Added availability statuses to the discipline selector.

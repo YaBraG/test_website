@@ -5,7 +5,11 @@ import { DisciplineSelector } from "@/components/planner/discipline-selector";
 import { EngineeringPlannerShell } from "@/components/planner/engineering-planner-shell";
 import { testUser } from "@/data/test-user";
 
-export function LoginCard() {
+type LoginCardProps = {
+  onPlannerViewChange?: (isPlannerVisible: boolean) => void;
+};
+
+export function LoginCard({ onPlannerViewChange }: LoginCardProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -55,7 +59,10 @@ export function LoginCard() {
         {selectedDisciplineId === "engineering" ? (
           <button
             type="button"
-            onClick={() => setShowPlanner(true)}
+            onClick={() => {
+              setShowPlanner(true);
+              onPlannerViewChange?.(true);
+            }}
             className="mt-6 rounded-md bg-sky-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-200"
           >
             Continue to planner
