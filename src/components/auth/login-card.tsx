@@ -6,6 +6,7 @@ import { testUser } from "@/data/test-user";
 export function LoginCard() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -18,7 +19,7 @@ export function LoginCard() {
 
     if (!isValidLogin) {
       setIsSignedIn(false);
-      setErrorMessage("Enter the test student email and password to continue.");
+      setErrorMessage("Enter the student email and password to continue.");
       return;
     }
 
@@ -36,7 +37,7 @@ export function LoginCard() {
           Welcome, {testUser.name}
         </h1>
         <p className="mt-4 text-base leading-7 text-slate-700">
-          You are signed in to the SAS course planner. The next step will be
+          You are signed in to the course planner. The next step will be
           choosing a discipline.
         </p>
       </section>
@@ -47,17 +48,18 @@ export function LoginCard() {
     <section className="w-full max-w-md rounded-lg border border-slate-200 bg-white p-8 shadow-sm">
       <div>
         <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">
-          SAS Course Planner
+          Course Planner
         </p>
         <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
           Student sign in
         </h1>
         <p className="mt-3 text-sm leading-6 text-slate-600">
-          Use the test student account to preview the course planning
-          experience.
+          Enter your student account information to continue to your planning
+          workspace.
         </p>
       </div>
 
+      {/* Temporary front-end sign-in for the first template version. */}
       <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
         <div>
           <label
@@ -85,16 +87,25 @@ export function LoginCard() {
           >
             Password
           </label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            className="mt-2 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-950 outline-none transition focus:border-sky-600 focus:ring-2 focus:ring-sky-100"
-            required
-          />
+          <div className="mt-2 flex rounded-md border border-slate-300 bg-white focus-within:border-sky-600 focus-within:ring-2 focus-within:ring-sky-100">
+            <input
+              id="password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              autoComplete="current-password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              className="min-w-0 flex-1 rounded-l-md bg-transparent px-3 py-2 text-slate-950 outline-none"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((currentValue) => !currentValue)}
+              className="rounded-r-md px-3 text-sm font-medium text-sky-700 transition hover:bg-slate-50 hover:text-sky-800"
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
         </div>
 
         {errorMessage ? (
