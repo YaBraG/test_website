@@ -18,12 +18,11 @@ export function LoginCard() {
     event.preventDefault();
 
     const isValidLogin =
-      email.trim().toLowerCase() === testUser.email &&
-      password === testUser.password;
+      email.trim().toLowerCase() === testUser.email && password === testUser.password;
 
     if (!isValidLogin) {
       setIsSignedIn(false);
-      setErrorMessage("Enter the student email and password to continue.");
+      setErrorMessage("The email or password is incorrect. Please try again.");
       return;
     }
 
@@ -76,18 +75,14 @@ export function LoginCard() {
           Student sign in
         </h1>
         <p className="mt-3 text-sm leading-6 text-slate-600">
-          Enter your student account information to continue to your planning
-          workspace.
+          Enter your student account information to continue to your planning workspace.
         </p>
       </div>
 
       {/* Temporary front-end sign-in for the first template version. */}
       <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
         <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-slate-800"
-          >
+          <label htmlFor="email" className="block text-sm font-medium text-slate-800">
             Email
           </label>
           <input
@@ -103,10 +98,7 @@ export function LoginCard() {
         </div>
 
         <div>
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-slate-800"
-          >
+          <label htmlFor="password" className="block text-sm font-medium text-slate-800">
             Password
           </label>
           <div className="mt-2 flex rounded-md border border-slate-300 bg-white focus-within:border-sky-600 focus-within:ring-2 focus-within:ring-sky-100">
