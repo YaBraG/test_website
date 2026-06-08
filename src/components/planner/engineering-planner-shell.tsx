@@ -1,5 +1,6 @@
 import { CourseCard } from "@/components/planner/course-card";
 import { ElectricalPathwayMap } from "@/components/planner/electrical-pathway-map";
+import { EngineeringTrackSelector } from "@/components/planner/engineering-track-selector";
 import { electricalEngineeringCourses } from "@/data/electrical-engineering-courses";
 import type { CourseCategory } from "@/types/course-planner";
 
@@ -72,6 +73,8 @@ export function EngineeringPlannerShell() {
               Template
             </span>
           </div>
+
+          <EngineeringTrackSelector />
 
           <ElectricalPathwayMap />
 
