@@ -4,6 +4,7 @@ All meaningful project changes will be tracked in this file.
 
 ## Unreleased
 
+- Added discipline selection after student sign-in.
 - Polished the student sign-in screen wording and added a password visibility toggle.
 - Updated the sample student email domain to `mdc.edu`.
 - Added a front-end student sign-in screen for the course planner.

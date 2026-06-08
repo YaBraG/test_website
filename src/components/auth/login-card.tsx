@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { DisciplineSelector } from "@/components/planner/discipline-selector";
 import { testUser } from "@/data/test-user";
 
 export function LoginCard() {
@@ -8,6 +9,7 @@ export function LoginCard() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [selectedDisciplineId, setSelectedDisciplineId] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -29,7 +31,7 @@ export function LoginCard() {
 
   if (isSignedIn) {
     return (
-      <section className="w-full max-w-xl rounded-lg border border-emerald-200 bg-white p-8 shadow-sm">
+      <section className="w-full max-w-3xl rounded-lg border border-slate-200 bg-white p-8 shadow-sm">
         <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
           Signed in
         </p>
@@ -37,9 +39,13 @@ export function LoginCard() {
           Welcome, {testUser.name}
         </h1>
         <p className="mt-4 text-base leading-7 text-slate-700">
-          You are signed in to the course planner. The next step will be
-          choosing a discipline.
+          Choose a discipline to start shaping your course planning pathway.
         </p>
+
+        <DisciplineSelector
+          selectedDisciplineId={selectedDisciplineId}
+          onSelectDiscipline={setSelectedDisciplineId}
+        />
       </section>
     );
   }
