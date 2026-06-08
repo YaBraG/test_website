@@ -42,6 +42,11 @@ src/
 public/
 ```
 
+## Project Notes
+
+- Coding-agent instructions are kept in `AGENTS.md`.
+- Project changes are tracked in `CHANGELOG.md`.
+
 ## Status
 
 Initial Next.js project setup complete.
