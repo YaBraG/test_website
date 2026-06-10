@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CollapsibleSection } from "@/components/planner/collapsible-section";
 import { CourseCard } from "@/components/planner/course-card";
 import { ElectricalPathwayMap } from "@/components/planner/electrical-pathway-map";
 import { EngineeringTrackSelector } from "@/components/planner/engineering-track-selector";
@@ -12,22 +13,27 @@ import type { CourseCategory } from "@/types/course-planner";
 const courseCategorySections: {
   category: CourseCategory;
   title: string;
+  defaultOpen: boolean;
 }[] = [
   {
     category: "general-education",
     title: "General Education",
+    defaultOpen: true,
   },
   {
     category: "discipline-general-education",
     title: "Discipline General Education",
+    defaultOpen: false,
   },
   {
     category: "mdc-track-requirement",
     title: "MDC Track Requirements",
+    defaultOpen: false,
   },
   {
     category: "transfer-core",
     title: "Transfer Core",
+    defaultOpen: false,
   },
 ];
 
@@ -83,31 +89,34 @@ export function EngineeringPlannerShell() {
             </span>
           </div>
 
-          <EngineeringTrackSelector />
-          <TransferUniversitySelector
-            selectedUniversityIds={selectedUniversityIds}
-            onSelectedUniversityIdsChange={setSelectedUniversityIds}
-          />
-          <TransferRequirementSummary
-            selectedUniversityIds={selectedUniversityIds}
-          />
+          <div className="mt-4 space-y-4">
+            <EngineeringTrackSelector />
+            <TransferUniversitySelector
+              selectedUniversityIds={selectedUniversityIds}
+              onSelectedUniversityIdsChange={setSelectedUniversityIds}
+            />
+            <TransferRequirementSummary
+              selectedUniversityIds={selectedUniversityIds}
+            />
+          </div>
 
           <ElectricalPathwayMap selectedUniversityIds={selectedUniversityIds} />
 
-          <div className="mt-5 rounded-md border border-slate-200 bg-white p-4">
-            <h3 className="text-sm font-semibold text-slate-900">
-              Future Course Marker Legend
-            </h3>
-            <div className="mt-3 grid gap-3 sm:grid-cols-2">
-              {legendItems.map((item) => (
-                <div key={item.label} className="flex items-center gap-3">
-                  <span
-                    className={`h-3 w-3 rounded-full ${item.markerClassName}`}
-                  />
-                  <span className="text-sm text-slate-600">{item.label}</span>
-                </div>
-              ))}
-            </div>
+          <div className="mt-5">
+            <CollapsibleSection title="Future Course Marker Legend">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {legendItems.map((item) => (
+                  <div key={item.label} className="flex items-center gap-3">
+                    <span
+                      className={`h-3 w-3 rounded-full ${item.markerClassName}`}
+                    />
+                    <span className="text-sm text-slate-600">
+                      {item.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </CollapsibleSection>
           </div>
         </div>
 
@@ -119,23 +128,25 @@ export function EngineeringPlannerShell() {
             Sample Electrical Engineering courses from the current source
             documents.
           </p>
-          <div className="mt-4 space-y-5">
+          <div className="mt-4 space-y-3">
             {courseCategorySections.map((section) => {
               const courses = electricalEngineeringCourses.filter(
                 (course) => course.category === section.category,
               );
 
               return (
-                <section key={section.category}>
-                  <h3 className="text-sm font-semibold text-slate-900">
-                    {section.title}
-                  </h3>
-                  <div className="mt-3 space-y-3">
+                <CollapsibleSection
+                  key={section.category}
+                  title={section.title}
+                  description={`${courses.length} sample courses`}
+                  defaultOpen={section.defaultOpen}
+                >
+                  <div className="space-y-3">
                     {courses.map((course) => (
                       <CourseCard key={course.id} course={course} />
                     ))}
                   </div>
-                </section>
+                </CollapsibleSection>
               );
             })}
           </div>

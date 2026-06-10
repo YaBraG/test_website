@@ -1,3 +1,4 @@
+import { CollapsibleSection } from "@/components/planner/collapsible-section";
 import { electricalTransferRequirements } from "@/data/electrical-transfer-requirements";
 import { electricalTransferUniversities } from "@/data/electrical-transfer-universities";
 
@@ -18,25 +19,24 @@ export function TransferRequirementSummary({
 
   if (selectedUniversityIds.length === 0) {
     return (
-      <section className="mt-4 rounded-md border border-slate-200 bg-slate-50 p-4">
-        <h3 className="text-sm font-semibold text-slate-950">
-          Transfer Requirement Summary
-        </h3>
-        <p className="mt-2 text-sm leading-6 text-slate-600">
+      <CollapsibleSection
+        title="Transfer Requirement Summary"
+        description="Compare first-pass requirement patterns for selected universities."
+      >
+        <p className="text-sm leading-6 text-slate-600">
           Select one or more transfer universities to compare requirement
           patterns.
         </p>
-      </section>
+      </CollapsibleSection>
     );
   }
 
   return (
-    <section className="mt-4 rounded-md border border-slate-200 bg-white p-4">
-      <h3 className="text-sm font-semibold text-slate-950">
-        Transfer Requirement Summary
-      </h3>
-
-      <div className="mt-4 space-y-5">
+    <CollapsibleSection
+      title="Transfer Requirement Summary"
+      description="Compare first-pass requirement patterns for selected universities."
+    >
+      <div className="space-y-5">
         <SummaryBlock title="Selected Universities">
           <div className="flex flex-wrap gap-2">
             {selectedUniversities.map((university) => (
@@ -119,7 +119,7 @@ export function TransferRequirementSummary({
           })}
         </div>
       </div>
-    </section>
+    </CollapsibleSection>
   );
 }
 

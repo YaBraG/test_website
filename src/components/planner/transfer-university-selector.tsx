@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CollapsibleSection } from "@/components/planner/collapsible-section";
 import { electricalTransferUniversities } from "@/data/electrical-transfer-universities";
 import type { TransferUniversity } from "@/data/electrical-transfer-universities";
 
@@ -54,20 +55,14 @@ export function TransferUniversitySelector({
   }
 
   return (
-    <section className="mt-4 rounded-md border border-slate-200 bg-white p-4">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <h3 className="text-sm font-semibold text-slate-950">
-            Transfer Universities
-          </h3>
-          <p className="mt-1 text-sm leading-6 text-slate-600">
-            Select up to 3 Florida universities for future transfer planning.
-          </p>
-        </div>
-        <p className="text-xs font-medium text-slate-500">
-          {selectedUniversityIds.length} of {maxSelections} selected
-        </p>
-      </div>
+    <CollapsibleSection
+      title="Transfer Universities"
+      description="Select up to 3 Florida universities for future transfer planning."
+      defaultOpen
+    >
+      <p className="text-xs font-medium text-slate-500">
+        {selectedUniversityIds.length} of {maxSelections} selected
+      </p>
 
       <div className="mt-4 grid gap-3 md:grid-cols-3">
         {electricalTransferUniversities.map((university) => {
@@ -129,6 +124,6 @@ export function TransferUniversitySelector({
         Transfer requirement comparison uses the first structured Electrical
         Engineering source records.
       </p>
-    </section>
+    </CollapsibleSection>
   );
 }

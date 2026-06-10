@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CollapsibleSection } from "@/components/planner/collapsible-section";
 import { engineeringTracks } from "@/data/engineering-tracks";
 import type { EngineeringTrack } from "@/data/engineering-tracks";
 
@@ -36,20 +37,14 @@ export function EngineeringTrackSelector() {
   }
 
   return (
-    <section className="mt-4 rounded-md border border-slate-200 bg-white p-4">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <h3 className="text-sm font-semibold text-slate-950">
-            Engineering Track
-          </h3>
-          <p className="mt-1 text-sm leading-6 text-slate-600">
-            Choose the Engineering track for this planner view.
-          </p>
-        </div>
-        <p className="text-xs font-medium text-slate-500">
-          Electrical Engineering selected by default
-        </p>
-      </div>
+    <CollapsibleSection
+      title="Engineering Track"
+      description="Choose the Engineering track for this planner view."
+      defaultOpen
+    >
+      <p className="text-xs font-medium text-slate-500">
+        Electrical Engineering selected by default
+      </p>
 
       <div className="mt-4 grid gap-3 md:grid-cols-2">
         {engineeringTracks.map((track) => (
@@ -89,6 +84,6 @@ export function EngineeringTrackSelector() {
           {message}
         </p>
       ) : null}
-    </section>
+    </CollapsibleSection>
   );
 }
