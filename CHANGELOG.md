@@ -4,6 +4,7 @@ All meaningful project changes will be tracked in this file.
 
 ## Unreleased
 
+- Added an Electrical Engineering transfer requirement summary.
 - Added an Electrical Engineering transfer university selector.
 - Added an Engineering track selector before the pathway map.
 - Added a static Electrical Engineering pathway map layout.

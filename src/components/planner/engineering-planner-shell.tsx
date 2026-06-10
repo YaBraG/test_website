@@ -1,6 +1,10 @@
+"use client";
+
+import { useState } from "react";
 import { CourseCard } from "@/components/planner/course-card";
 import { ElectricalPathwayMap } from "@/components/planner/electrical-pathway-map";
 import { EngineeringTrackSelector } from "@/components/planner/engineering-track-selector";
+import { TransferRequirementSummary } from "@/components/planner/transfer-requirement-summary";
 import { TransferUniversitySelector } from "@/components/planner/transfer-university-selector";
 import { electricalEngineeringCourses } from "@/data/electrical-engineering-courses";
 import type { CourseCategory } from "@/types/course-planner";
@@ -47,6 +51,10 @@ const legendItems = [
 ];
 
 export function EngineeringPlannerShell() {
+  const [selectedUniversityIds, setSelectedUniversityIds] = useState<string[]>(
+    [],
+  );
+
   return (
     <section className="w-full max-w-6xl rounded-lg border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
       <div className="flex flex-col gap-3 border-b border-slate-200 pb-6">
@@ -76,7 +84,13 @@ export function EngineeringPlannerShell() {
           </div>
 
           <EngineeringTrackSelector />
-          <TransferUniversitySelector />
+          <TransferUniversitySelector
+            selectedUniversityIds={selectedUniversityIds}
+            onSelectedUniversityIdsChange={setSelectedUniversityIds}
+          />
+          <TransferRequirementSummary
+            selectedUniversityIds={selectedUniversityIds}
+          />
 
           <ElectricalPathwayMap />
 

@@ -16,8 +16,15 @@ const statusStyles = {
   "needs-review": "bg-amber-50 text-amber-700",
 };
 
-export function TransferUniversitySelector() {
-  const [selectedUniversityIds, setSelectedUniversityIds] = useState<string[]>([]);
+type TransferUniversitySelectorProps = {
+  selectedUniversityIds: string[];
+  onSelectedUniversityIdsChange: (universityIds: string[]) => void;
+};
+
+export function TransferUniversitySelector({
+  selectedUniversityIds,
+  onSelectedUniversityIdsChange,
+}: TransferUniversitySelectorProps) {
   const [message, setMessage] = useState("");
 
   const selectedUniversities = electricalTransferUniversities.filter((university) =>
@@ -28,8 +35,10 @@ export function TransferUniversitySelector() {
     const isSelected = selectedUniversityIds.includes(university.id);
 
     if (isSelected) {
-      setSelectedUniversityIds((currentIds) =>
-        currentIds.filter((universityId) => universityId !== university.id),
+      onSelectedUniversityIdsChange(
+        selectedUniversityIds.filter(
+          (universityId) => universityId !== university.id,
+        ),
       );
       setMessage("");
       return;
@@ -40,7 +49,7 @@ export function TransferUniversitySelector() {
       return;
     }
 
-    setSelectedUniversityIds((currentIds) => [...currentIds, university.id]);
+    onSelectedUniversityIdsChange([...selectedUniversityIds, university.id]);
     setMessage("");
   }
 
@@ -117,8 +126,8 @@ export function TransferUniversitySelector() {
       ) : null}
 
       <p className="mt-3 text-sm leading-6 text-slate-500">
-        Transfer requirement comparison will be added after the university rules
-        are structured.
+        Transfer requirement comparison uses the first structured Electrical
+        Engineering source records.
       </p>
     </section>
   );
