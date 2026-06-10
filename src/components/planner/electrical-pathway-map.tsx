@@ -1,5 +1,15 @@
 import { electricalEngineeringCourses } from "@/data/electrical-engineering-courses";
+import { electricalTransferRequirements } from "@/data/electrical-transfer-requirements";
 import type { CourseCategory, PlannerCourse } from "@/types/course-planner";
+
+type TransferMatchStatus =
+  | "common-required"
+  | "university-specific-required"
+  | "not-matched";
+
+type ElectricalPathwayMapProps = {
+  selectedUniversityIds: string[];
+};
 
 type PathwayPhase = {
   id: string;
@@ -42,10 +52,21 @@ const categoryLabels: Record<CourseCategory, string> = {
   "transfer-core": "Transfer Core",
 };
 
-export function ElectricalPathwayMap() {
+export function ElectricalPathwayMap({
+  selectedUniversityIds,
+}: ElectricalPathwayMapProps) {
+  const showTransferMatches = selectedUniversityIds.length > 0;
+
   return (
     <div className="mt-4 overflow-x-auto rounded-md border border-slate-200 bg-white">
       <div className="min-w-[44rem] space-y-4 p-4">
+        {showTransferMatches ? (
+          <div className="rounded-md border border-sky-200 bg-sky-50 px-4 py-3 text-sm leading-6 text-sky-800">
+            Transfer badges show whether a course is required by every selected
+            university or only by some selected universities.
+          </div>
+        ) : null}
+
         {pathwayPhases.map((phase) => {
           const courses = getCoursesForPhase(phase);
           const creditTotal = courses.reduce(
@@ -75,9 +96,21 @@ export function ElectricalPathwayMap() {
               </div>
 
               <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-                {courses.map((course) => (
-                  <PathwayCourseBox key={course.id} course={course} />
-                ))}
+                {courses.map((course) => {
+                  const transferMatchStatus = getTransferMatchStatus(
+                    course.code,
+                    selectedUniversityIds,
+                  );
+
+                  return (
+                    <PathwayCourseBox
+                      key={course.id}
+                      course={course}
+                      showTransferMatch={showTransferMatches}
+                      transferMatchStatus={transferMatchStatus}
+                    />
+                  );
+                })}
               </div>
             </section>
           );
@@ -99,7 +132,41 @@ function getCoursesForPhase(phase: PathwayPhase) {
     .filter((course): course is PlannerCourse => Boolean(course));
 }
 
-function PathwayCourseBox({ course }: { course: PlannerCourse }) {
+function getTransferMatchStatus(
+  courseCode: string,
+  selectedUniversityIds: string[],
+): TransferMatchStatus {
+  if (selectedUniversityIds.length === 0) {
+    return "not-matched";
+  }
+
+  const selectedRequirements = electricalTransferRequirements.filter(
+    (requirement) => selectedUniversityIds.includes(requirement.universityId),
+  );
+  const requiredMatchCount = selectedRequirements.filter((requirement) =>
+    requirement.requiredCourses.includes(courseCode),
+  ).length;
+
+  if (requiredMatchCount === selectedUniversityIds.length) {
+    return "common-required";
+  }
+
+  if (requiredMatchCount > 0) {
+    return "university-specific-required";
+  }
+
+  return "not-matched";
+}
+
+function PathwayCourseBox({
+  course,
+  showTransferMatch,
+  transferMatchStatus,
+}: {
+  course: PlannerCourse;
+  showTransferMatch: boolean;
+  transferMatchStatus: TransferMatchStatus;
+}) {
   return (
     <article className="min-h-32 rounded-md border border-slate-300 bg-white p-3 shadow-sm">
       <div className="flex items-start justify-between gap-3">
@@ -114,6 +181,31 @@ function PathwayCourseBox({ course }: { course: PlannerCourse }) {
       <p className="mt-3 rounded bg-sky-50 px-2 py-1 text-xs font-medium text-sky-800">
         {categoryLabels[course.category]}
       </p>
+      {showTransferMatch && transferMatchStatus !== "not-matched" ? (
+        <TransferMatchBadge status={transferMatchStatus} />
+      ) : null}
     </article>
+  );
+}
+
+function TransferMatchBadge({ status }: { status: TransferMatchStatus }) {
+  const badgeText = {
+    "common-required": "Common required",
+    "university-specific-required": "Required by selected university",
+    "not-matched": "",
+  };
+
+  const badgeStyles = {
+    "common-required": "border-emerald-200 bg-emerald-50 text-emerald-800",
+    "university-specific-required": "border-amber-200 bg-amber-50 text-amber-800",
+    "not-matched": "",
+  };
+
+  return (
+    <p
+      className={`mt-3 rounded border px-2 py-1 text-xs font-semibold ${badgeStyles[status]}`}
+    >
+      {badgeText[status]}
+    </p>
   );
 }

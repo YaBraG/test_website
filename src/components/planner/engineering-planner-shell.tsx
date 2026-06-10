@@ -92,7 +92,7 @@ export function EngineeringPlannerShell() {
             selectedUniversityIds={selectedUniversityIds}
           />
 
-          <ElectricalPathwayMap />
+          <ElectricalPathwayMap selectedUniversityIds={selectedUniversityIds} />
 
           <div className="mt-5 rounded-md border border-slate-200 bg-white p-4">
             <h3 className="text-sm font-semibold text-slate-900">
