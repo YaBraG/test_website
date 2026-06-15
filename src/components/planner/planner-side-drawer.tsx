@@ -1,16 +1,16 @@
 import type { ReactNode } from "react";
 
-type CourseOptionsDrawerProps = {
+type PlannerSideDrawerProps = {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
 };
 
-export function CourseOptionsDrawer({
+export function PlannerSideDrawer({
   isOpen,
   onClose,
   children,
-}: CourseOptionsDrawerProps) {
+}: PlannerSideDrawerProps) {
   if (!isOpen) {
     return null;
   }
@@ -19,19 +19,19 @@ export function CourseOptionsDrawer({
     <div className="fixed inset-0 z-20">
       <button
         type="button"
-        aria-label="Close course options"
+        aria-label="Close planner setup"
         className="absolute inset-0 bg-slate-950/20"
         onClick={onClose}
       />
-      <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-slate-200 bg-white shadow-xl">
+      <aside className="absolute right-0 top-0 flex h-full w-full max-w-[34rem] flex-col border-l border-slate-200 bg-white shadow-xl">
         <div className="flex items-start justify-between gap-4 border-b border-slate-200 p-5">
           <div>
             <h2 className="text-lg font-semibold text-slate-950">
-              Course Options
+              Planner Setup
             </h2>
             <p className="mt-1 text-sm leading-6 text-slate-600">
-              Sample Electrical Engineering courses from the current source
-              documents.
+              Adjust track, transfer targets, requirement summaries, and course
+              options.
             </p>
           </div>
           <button

@@ -59,7 +59,7 @@ export function ElectricalPathwayMap({
 
   return (
     <div className="mt-4 overflow-x-auto rounded-md border border-slate-200 bg-white">
-      <div className="min-w-[44rem] space-y-4 p-4">
+      <div className="min-w-[78rem] space-y-4 p-4">
         {showTransferMatches ? (
           <div className="rounded-md border border-sky-200 bg-sky-50 px-4 py-3 text-sm leading-6 text-sky-800">
             Transfer badges show whether a course is required by every selected
@@ -77,7 +77,7 @@ export function ElectricalPathwayMap({
           return (
             <section
               key={phase.id}
-              className="grid gap-4 rounded-md border border-slate-200 bg-slate-50 p-4 md:grid-cols-[8rem_4rem_minmax(0,1fr)]"
+              className="grid gap-4 rounded-md border border-slate-200 bg-slate-50 p-4 md:grid-cols-[10rem_5rem_minmax(0,1fr)]"
             >
               <div>
                 <h3 className="text-sm font-semibold text-slate-950">
@@ -101,7 +101,7 @@ export function ElectricalPathwayMap({
                 <p className="text-xs font-medium text-slate-500">credits</p>
               </div>
 
-              <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+              <div className="flex gap-3 overflow-x-auto pb-1">
                 {courses.map((course) => {
                   const transferMatchStatus = getTransferMatchStatus(
                     course.code,
@@ -174,7 +174,7 @@ function PathwayCourseBox({
   transferMatchStatus: TransferMatchStatus;
 }) {
   return (
-    <article className="min-h-32 rounded-md border border-slate-300 bg-white p-3 shadow-sm">
+    <article className="min-h-36 w-56 shrink-0 rounded-md border border-slate-300 bg-white p-3 shadow-sm">
       <div className="flex items-start justify-between gap-3">
         <p className="text-sm font-semibold text-sky-700">{course.code}</p>
         <span className="shrink-0 rounded bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700">
