@@ -4,6 +4,24 @@ type CourseCardProps = {
   course: PlannerCourse;
 };
 
+const requirementTagLabels: Record<string, string> = {
+  "communications-state-core": "Communications State Core",
+  "communications-mdc-core": "Communications MDC Core",
+  "oral-communications": "Oral Communication",
+  "mathematics-state-core": "Mathematics State Core",
+  "mathematics-mdc-core": "Mathematics MDC Core",
+  "humanities-state-core": "Humanities State Core",
+  "humanities-mdc-core": "Humanities MDC Core",
+  "social-sciences-state-core": "Social Sciences State Core",
+  "social-sciences-mdc-core": "Social Sciences MDC Core",
+  "natural-sciences-state-core": "Natural Sciences State Core",
+  "natural-sciences-mdc-core": "Natural Sciences MDC Core",
+  "natural-sciences-lab": "Natural Sciences Lab",
+  "first-year-experience": "First Year Experience",
+  "pathway-elective": "Pathway Elective",
+  "general-education-elective": "Gen Ed Elective",
+};
+
 export function CourseCard({ course }: CourseCardProps) {
   const eligibility = getEligibilityLabel(course);
 
@@ -24,6 +42,32 @@ export function CourseCard({ course }: CourseCardProps) {
       <p className="mt-3 text-sm text-slate-600">
         Requirement group: {course.requirementGroup}
       </p>
+
+      <div className="mt-3 flex flex-wrap gap-2">
+        {course.requirementTags.map((tag) => (
+          <span
+            key={tag}
+            className="rounded bg-sky-50 px-2 py-1 text-xs font-medium text-sky-800"
+          >
+            {requirementTagLabels[tag] ?? tag}
+          </span>
+        ))}
+        {course.flags.map((flag) => (
+          <span
+            key={flag}
+            className="rounded bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700"
+          >
+            {flag === "writing-intensive"
+              ? "Writing Intensive"
+              : "Computational"}
+          </span>
+        ))}
+        {course.specialTags.includes("transfer-requirement") ? (
+          <span className="rounded border border-violet-200 bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-800">
+            Transfer Requirement
+          </span>
+        ) : null}
+      </div>
 
       {course.isRecommended && course.recommendationReason ? (
         <div className="mt-3 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2">

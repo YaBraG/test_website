@@ -4,6 +4,7 @@ All meaningful project changes will be tracked in this file.
 
 ## Unreleased
 
+- Wired the Electrical Engineering planner UI to structured pathway and requirement data.
 - Split planner drawer controls into Engineering track, Transfer options, and Courses buttons.
 - Widened the Engineering planner canvas to use more of the screen.
 - Moved planner setup controls into the side drawer and widened the pathway canvas.
