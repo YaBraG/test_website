@@ -86,6 +86,12 @@ export function ElectricalPathwayMap({
                 <p className="mt-1 text-xs leading-5 text-slate-500">
                   Static planning row
                 </p>
+                <button
+                  type="button"
+                  className="mt-3 rounded-md border border-dashed border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700"
+                >
+                  + Add course
+                </button>
               </div>
 
               <div className="rounded-md border border-slate-200 bg-white px-3 py-2 text-center">
