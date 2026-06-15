@@ -25,6 +25,9 @@ export function ChoiceCourseSelector({
         <p className="mt-1 text-sm leading-6 text-slate-600">
           Choose one course for this {slot.credits}-credit requirement.
         </p>
+        <p className="mt-2 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-6 text-slate-600">
+          Course selection will be enabled in the next planning step.
+        </p>
       </div>
 
       {eligibleCourses.length === 0 ? (
@@ -57,7 +60,7 @@ export function ChoiceCourseSelector({
                   </h4>
                 </div>
                 <span className="shrink-0 rounded bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700">
-                  {course.credits} credits
+                  {getCourseCreditLabel(course)}
                 </span>
               </div>
 
@@ -89,6 +92,14 @@ export function ChoiceCourseSelector({
       </div>
     </div>
   );
+}
+
+function getCourseCreditLabel(course: PlannerCourse) {
+  if (course.credits === 0 && course.sourceStatus === "pending-confirmation") {
+    return "credit pending";
+  }
+
+  return `${course.credits} credits`;
 }
 
 function getPrerequisiteStatus(

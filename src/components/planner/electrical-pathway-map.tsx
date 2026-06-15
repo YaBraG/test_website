@@ -279,7 +279,7 @@ function PathwayCourseBox({
       <div className="flex items-start justify-between gap-3">
         <p className="text-sm font-semibold text-sky-700">{course.code}</p>
         <span className="shrink-0 rounded bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700">
-          {course.credits} cr
+          {getCourseCreditLabel(course)}
         </span>
       </div>
       <h4 className="mt-2 text-sm font-semibold leading-5 text-slate-950">
@@ -306,6 +306,14 @@ function PathwayCourseBox({
       ) : null}
     </article>
   );
+}
+
+function getCourseCreditLabel(course: PlannerCourse) {
+  if (course.credits === 0 && course.sourceStatus === "pending-confirmation") {
+    return "credit pending";
+  }
+
+  return `${course.credits} cr`;
 }
 
 function Tag({ children }: { children: string }) {

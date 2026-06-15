@@ -67,8 +67,13 @@ const legendItems = [
 
 const progressRequirementIds = [
   "communications",
+  "oral-communications",
   "mathematics",
+  "humanities",
+  "social-sciences",
   "natural-sciences",
+  "general-education-elective",
+  "first-year-experience",
   "pathway-electives",
 ];
 
@@ -119,11 +124,20 @@ export function EngineeringPlannerShell() {
     [visibleSemesters],
   );
   const requirementProgressItems = useMemo(
-    () =>
-      calculateRequirementProgress(visibleCourses).filter((item) =>
-        progressRequirementIds.includes(item.id),
-      ),
+    () => {
+      const progressItems = calculateRequirementProgress(visibleCourses);
+
+      return progressRequirementIds
+        .map((requirementId) =>
+          progressItems.find((item) => item.id === requirementId),
+        )
+        .filter((item): item is NonNullable<typeof item> => Boolean(item));
+    },
     [visibleCourses],
+  );
+  const programTotalProgress = useMemo(
+    () => getProgramTotalProgress(visibleSemesters),
+    [visibleSemesters],
   );
   const selectedChoiceCourses = selectedChoiceSlot
     ? getEligibleChoiceCourses(selectedChoiceSlot.slot)
@@ -228,14 +242,14 @@ export function EngineeringPlannerShell() {
           </div>
         </div>
 
-        <div className="mt-5 grid gap-3 md:grid-cols-4">
-          {requirementProgressItems.map((item) => (
+        <div className="mt-5 grid grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] gap-3">
+          {[...requirementProgressItems, programTotalProgress].map((item) => (
             <div
               key={item.label}
-              className="rounded-md border border-slate-200 bg-white p-4"
+              className="rounded-md border border-slate-200 bg-white p-3"
             >
               <div className="flex items-center justify-between gap-3">
-                <h3 className="text-sm font-semibold text-slate-950">
+                <h3 className="text-xs font-semibold leading-5 text-slate-950">
                   {item.label}
                 </h3>
                 <span className="text-xs font-semibold text-slate-500">
@@ -403,4 +417,27 @@ function getProgressPercent(completedCredits: number, requiredCredits: number) {
   }
 
   return Math.min(100, (completedCredits / requiredCredits) * 100);
+}
+
+function getProgramTotalProgress(semesters: DefaultPathwaySemester[]) {
+  const completedCredits = semesters.reduce(
+    (total, semester) =>
+      total +
+      semester.slots.reduce(
+        (semesterTotal, slot) => semesterTotal + slot.credits,
+        0,
+      ),
+    0,
+  );
+  const requiredCredits = electricalEngineeringDefaultPathway.reduce(
+    (total, semester) => total + semester.totalCredits,
+    0,
+  );
+
+  return {
+    id: "program-total",
+    label: "Program Total",
+    completedCredits,
+    requiredCredits,
+  };
 }

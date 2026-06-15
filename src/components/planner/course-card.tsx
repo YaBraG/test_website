@@ -35,7 +35,7 @@ export function CourseCard({ course }: CourseCardProps) {
           </h4>
         </div>
         <span className="shrink-0 rounded bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700">
-          {course.credits} credits
+          {getCourseCreditLabel(course)}
         </span>
       </div>
 
@@ -87,6 +87,14 @@ export function CourseCard({ course }: CourseCardProps) {
       </p>
     </article>
   );
+}
+
+function getCourseCreditLabel(course: PlannerCourse) {
+  if (course.credits === 0 && course.sourceStatus === "pending-confirmation") {
+    return "credit pending";
+  }
+
+  return `${course.credits} credits`;
 }
 
 function getEligibilityLabel(course: PlannerCourse) {

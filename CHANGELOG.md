@@ -4,6 +4,7 @@ All meaningful project changes will be tracked in this file.
 
 ## Unreleased
 
+- Fixed planner requirement progress cards and replaced the Computer Competency note with CGS 1060C.
 - Wired the Electrical Engineering planner UI to structured pathway and requirement data.
 - Split planner drawer controls into Engineering track, Transfer options, and Courses buttons.
 - Widened the Engineering planner canvas to use more of the screen.

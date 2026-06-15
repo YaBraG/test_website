@@ -78,12 +78,13 @@ export const electricalEngineeringDefaultPathway: DefaultPathwaySemester[] = [
         sourceNote: "MDC EE CSG full-time semester 2 restricted social sciences choice.",
       },
       {
-        id: "semester-2-computer-competency",
-        type: "note",
-        label: "Computer Competency",
+        id: "semester-2-cgs-1060c",
+        type: "course",
+        label: "CGS 1060C",
+        courseCode: "CGS 1060C",
         credits: 0,
-        notes: ["Computer Skills Placement (CSP) or CGS 1060C. Competency logic is intentionally not active yet."],
-        sourceNote: "MDC EE CSG full-time semester 2.",
+        notes: ["Credit value is pending confirmation in the current structured source data."],
+        sourceNote: "MDC EE CSG full-time semester 2 lists Computer Skills Placement (CSP) or CGS 1060C.",
       },
       {
         id: "semester-2-chm-1045",
