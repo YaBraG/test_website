@@ -8,10 +8,10 @@ export function CoursePlannerExperience() {
 
   return (
     <div
-      className={`mx-auto flex min-h-[calc(100vh-5rem)] w-full max-w-6xl flex-col gap-10 ${
+      className={`mx-auto flex min-h-[calc(100vh-5rem)] w-full flex-col gap-10 ${
         isPlannerVisible
-          ? "justify-start"
-          : "justify-center lg:flex-row lg:items-center lg:justify-between"
+          ? "max-w-[90vw] justify-start"
+          : "max-w-6xl justify-center lg:flex-row lg:items-center lg:justify-between"
       }`}
     >
       {!isPlannerVisible ? (

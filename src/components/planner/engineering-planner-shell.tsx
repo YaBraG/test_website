@@ -76,14 +76,36 @@ const requirementProgressItems = [
   },
 ];
 
+type DrawerView = "engineering-track" | "transfer-options" | "courses";
+
+const drawerContent = {
+  "engineering-track": {
+    title: "Engineering Track",
+    description: "Choose the Engineering track for this planner view.",
+  },
+  "transfer-options": {
+    title: "Transfer Options",
+    description: "Choose universities and review first-pass transfer summaries.",
+  },
+  courses: {
+    title: "Courses",
+    description: "Browse course options and marker legend details.",
+  },
+};
+
 export function EngineeringPlannerShell() {
   const [selectedUniversityIds, setSelectedUniversityIds] = useState<string[]>(
     [],
   );
-  const [isSetupDrawerOpen, setIsSetupDrawerOpen] = useState(false);
+  const [activeDrawerView, setActiveDrawerView] =
+    useState<DrawerView | null>(null);
+
+  function openDrawer(view: DrawerView) {
+    setActiveDrawerView(view);
+  }
 
   return (
-    <section className="w-full max-w-7xl rounded-lg border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+    <section className="w-full rounded-lg border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
       <div className="flex flex-col gap-3 border-b border-slate-200 pb-6">
         <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">
           Engineering pathway
@@ -125,10 +147,24 @@ export function EngineeringPlannerShell() {
             </button>
             <button
               type="button"
-              onClick={() => setIsSetupDrawerOpen(true)}
+              onClick={() => openDrawer("engineering-track")}
               className="rounded-md bg-sky-700 px-3 py-2 text-sm font-semibold text-white transition hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-200"
             >
-              Options
+              Engineering track
+            </button>
+            <button
+              type="button"
+              onClick={() => openDrawer("transfer-options")}
+              className="rounded-md bg-sky-700 px-3 py-2 text-sm font-semibold text-white transition hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-200"
+            >
+              Transfer options
+            </button>
+            <button
+              type="button"
+              onClick={() => openDrawer("courses")}
+              className="rounded-md bg-sky-700 px-3 py-2 text-sm font-semibold text-white transition hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-200"
+            >
+              Courses
             </button>
           </div>
         </div>
@@ -161,61 +197,82 @@ export function EngineeringPlannerShell() {
       </div>
 
       <PlannerSideDrawer
-        isOpen={isSetupDrawerOpen}
-        onClose={() => setIsSetupDrawerOpen(false)}
+        isOpen={activeDrawerView !== null}
+        title={
+          activeDrawerView
+            ? drawerContent[activeDrawerView].title
+            : drawerContent.courses.title
+        }
+        description={
+          activeDrawerView
+            ? drawerContent[activeDrawerView].description
+            : drawerContent.courses.description
+        }
+        onClose={() => setActiveDrawerView(null)}
       >
-        <div className="space-y-4">
+        {activeDrawerView === "engineering-track" ? (
           <EngineeringTrackSelector />
-          <TransferUniversitySelector
-            selectedUniversityIds={selectedUniversityIds}
-            onSelectedUniversityIdsChange={setSelectedUniversityIds}
-          />
-          <TransferRequirementSummary
-            selectedUniversityIds={selectedUniversityIds}
-          />
+        ) : null}
 
-          <CollapsibleSection
-            title="Course Options"
-            description="Browse sample Electrical Engineering courses."
-            defaultOpen
-          >
-            <div className="space-y-3">
-              {courseCategorySections.map((section) => {
-                const courses = electricalEngineeringCourses.filter(
-                  (course) => course.category === section.category,
-                );
+        {activeDrawerView === "transfer-options" ? (
+          <div className="space-y-4">
+            <TransferUniversitySelector
+              selectedUniversityIds={selectedUniversityIds}
+              onSelectedUniversityIdsChange={setSelectedUniversityIds}
+            />
+            <TransferRequirementSummary
+              selectedUniversityIds={selectedUniversityIds}
+            />
+          </div>
+        ) : null}
 
-                return (
-                  <CollapsibleSection
-                    key={section.category}
-                    title={section.title}
-                    description={`${courses.length} sample courses`}
-                    defaultOpen={section.defaultOpen}
-                  >
-                    <div className="space-y-3">
-                      {courses.map((course) => (
-                        <CourseCard key={course.id} course={course} />
-                      ))}
-                    </div>
-                  </CollapsibleSection>
-                );
-              })}
-            </div>
-          </CollapsibleSection>
+        {activeDrawerView === "courses" ? (
+          <div className="space-y-4">
+            <CollapsibleSection
+              title="Course Options"
+              description="Browse sample Electrical Engineering courses."
+              defaultOpen
+            >
+              <div className="space-y-3">
+                {courseCategorySections.map((section) => {
+                  const courses = electricalEngineeringCourses.filter(
+                    (course) => course.category === section.category,
+                  );
 
-          <CollapsibleSection title="Future Course Marker Legend">
-            <div className="grid gap-3">
-              {legendItems.map((item) => (
-                <div key={item.label} className="flex items-center gap-3">
-                  <span
-                    className={`h-3 w-3 rounded-full ${item.markerClassName}`}
-                  />
-                  <span className="text-sm text-slate-600">{item.label}</span>
-                </div>
-              ))}
-            </div>
-          </CollapsibleSection>
-        </div>
+                  return (
+                    <CollapsibleSection
+                      key={section.category}
+                      title={section.title}
+                      description={`${courses.length} sample courses`}
+                      defaultOpen={section.defaultOpen}
+                    >
+                      <div className="space-y-3">
+                        {courses.map((course) => (
+                          <CourseCard key={course.id} course={course} />
+                        ))}
+                      </div>
+                    </CollapsibleSection>
+                  );
+                })}
+              </div>
+            </CollapsibleSection>
+
+            <CollapsibleSection title="Future Course Marker Legend">
+              <div className="grid gap-3">
+                {legendItems.map((item) => (
+                  <div key={item.label} className="flex items-center gap-3">
+                    <span
+                      className={`h-3 w-3 rounded-full ${item.markerClassName}`}
+                    />
+                    <span className="text-sm text-slate-600">
+                      {item.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </CollapsibleSection>
+          </div>
+        ) : null}
       </PlannerSideDrawer>
     </section>
   );

@@ -2,12 +2,16 @@ import type { ReactNode } from "react";
 
 type PlannerSideDrawerProps = {
   isOpen: boolean;
+  title: string;
+  description: string;
   onClose: () => void;
   children: ReactNode;
 };
 
 export function PlannerSideDrawer({
   isOpen,
+  title,
+  description,
   onClose,
   children,
 }: PlannerSideDrawerProps) {
@@ -27,11 +31,10 @@ export function PlannerSideDrawer({
         <div className="flex items-start justify-between gap-4 border-b border-slate-200 p-5">
           <div>
             <h2 className="text-lg font-semibold text-slate-950">
-              Planner Setup
+              {title}
             </h2>
             <p className="mt-1 text-sm leading-6 text-slate-600">
-              Adjust track, transfer targets, requirement summaries, and course
-              options.
+              {description}
             </p>
           </div>
           <button
